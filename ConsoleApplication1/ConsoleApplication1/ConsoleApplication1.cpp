@@ -2,11 +2,33 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include <array>
+#include <thread>
+#include <cpr\cpr.h>
+#include "json.hpp"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main() {
+    // URL of the website you want to retrieve data from
+    std::string url = "https://example.com";
+
+    // Make a GET request using CPR
+    cpr::Response response = cpr::Get(cpr::Url{ url });
+
+    // Check if the request was successful
+    if (response.status_code == 200) {
+        // Print the response body
+        std::cout << "Response: " << response.text << std::endl;
+    }
+    else {
+        // Print an error message if the request was not successful
+        std::cerr << "Request failed: " << response.status_code << std::endl;
+    }
+
+    return 0;
 }
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
