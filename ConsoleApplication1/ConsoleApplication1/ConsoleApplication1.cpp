@@ -8,25 +8,38 @@
 #include <thread>
 #include <cpr\cpr.h>
 #include "json.hpp"
+#include "BitCoin.h"
+#include "Wallet.h"
+#include "CommandProcessor.h"
 
-int main() {
-    // URL of the website you want to retrieve data from
-    std::string url = "https://example.com";
 
-    // Make a GET request using CPR
-    cpr::Response response = cpr::Get(cpr::Url{ url });
+//To Do
+//Write a command processor class;
+int main()
+{
+	Wallet wallet;
+	BitCoin btc;
+	CommandProcessor CLI;
 
-    // Check if the request was successful
-    if (response.status_code == 200) {
-        // Print the response body
-        std::cout << "Response: " << response.text << std::endl;
-    }
-    else {
-        // Print an error message if the request was not successful
-        std::cerr << "Request failed: " << response.status_code << std::endl;
-    }
 
-    return 0;
+	CLI.InitiatingTheProgram(wallet);
+	CLI.CommandHandler(wallet, btc);
+
+	/*
+	std::string commands;
+	BitCoin btc;
+	while (1)
+	{
+		double amount;
+		std::cout << "Please Enter the amount of money you have in your wallet(in usd)\n-> ";
+		std::cin >> amount;
+		Wallet wallet(amount);
+		while (std::cin>> commands)
+		{
+
+		}
+	}
+	*/
 }
 
 

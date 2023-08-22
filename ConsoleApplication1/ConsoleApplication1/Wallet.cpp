@@ -1,7 +1,8 @@
 #include "Wallet.h"
-#include<iostream>
+#include <iostream>
+#include "BitCoin.h"
 
-Wallet::Wallet(double balance) : _mbalance(balance) {};
+Wallet::Wallet(double balance) : m_balance(balance) {};
 
 void Wallet::AddValue(double amount, bool showLog)
 {
@@ -13,14 +14,14 @@ void Wallet::AddValue(double amount, bool showLog)
 
 	if (showLog)
 	{
-		std::cout << "\nThe wallet's balance was: " << _mbalance << "$ before the increase\n";
+		std::cout << "\nThe wallet's balance was: " << m_balance << "$ before the increase\n";
 	}
 
-	_mbalance += amount;
+	m_balance += amount;
 
 	if (showLog)
 	{
-		std::cout << "\nThe wallet's balance is: " << _mbalance << "$ after the increase\n";
+		std::cout << "\nThe wallet's balance is: " << m_balance << "$ after the increase\n";
 	}
 	
 }
@@ -41,15 +42,25 @@ void Wallet::DecreaseValue(double amount, bool showLog)
 
 	if (showLog)
 	{
-		std::cout << "\nThe wallet's balance was: " << _mbalance << "$ before the increase\n";
+		std::cout << "\nThe wallet's balance was: " << m_balance << "$ before the increase\n";
 	}
 
-	_mbalance += amount;
+	m_balance += amount;
 
 	if (showLog)
 	{
-		std::cout << "\nThe wallet's balance is: " << _mbalance << "$ after the increase\n";
+		std::cout << "\nThe wallet's balance is: " << m_balance << "$ after the increase\n";
 	}
 
 }
 
+double Wallet::ReturnBalanceInBitCoin(const BitCoin& btc)const
+{
+	return (m_balance / btc.GetPrice());
+
+}
+
+void Wallet::ResetTheValueTo(double amount)
+{
+	m_balance = amount;
+}

@@ -131,11 +131,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitCoin.cpp" />
+    <ClCompile Include="CommandProcessor.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="PriceUpdater.cpp" />
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitCoin.h" />
+    <ClInclude Include="CommandProcessor.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="PriceUpdater.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
