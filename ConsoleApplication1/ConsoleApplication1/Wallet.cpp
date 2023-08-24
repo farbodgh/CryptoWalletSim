@@ -34,15 +34,14 @@ void Wallet::DecreaseValue(double amount, bool showLog)
 		return;
 	}
 
-	if (amount < 0)
+	if (amount > 0)
 	{
-		std::cerr << "\nThis function only accepts a negative value, please try AddValue() for adding to the balance\n";
-		return;
+		amount *= -1;
 	}
 
 	if (showLog)
 	{
-		std::cout << "\nThe wallet's balance was: " << m_balance << "$ before the increase\n";
+		std::cout << "\nThe wallet's balance was: " << m_balance << "$ before the deduction\n";
 	}
 
 	m_balance += amount;
