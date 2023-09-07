@@ -1,0 +1,42 @@
+CryptoWalletSim
+
+CryptoWalletSim is a command-line application written in modern C++. It leverages multi-threading capabilities to provide efficient processing of user commands. This project consists of two main functions:
+
+1. **Command Reader**: Responsible for reading commands from the user.
+2. **Command Processor**: Processes the commands received from the user.
+
+Use:
+In order to use it, you should download it on your system, and run it with the compiler of your choice. Because of conio.h it does not work on linux operating systems.
+
+## License
+
+This project is licensed under the MIT License.
+
+### MIT License
+
+[MIT License](https://opensource.org/licenses/MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+**Credits and Acknowledgments**
+
+This project relies on the following third-party libraries:
+
+- [cpr (C++ Requests)](https://github.com/whoshuu/cpr)
+  - Author: [Original Author's Name]
+  - License: [Link to License Information]
+
+- [nlohmann/json](https://github.com/nlohmann/json)
+  - Author: [Original Author's Name]
+  - License: [Link to License Information]
+
+Please take a moment to acknowledge and appreciate the contributions of the original authors and contributors of these libraries.
+
