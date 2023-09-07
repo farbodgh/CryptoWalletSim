@@ -33,7 +33,7 @@ void CommandProcessor::LiveBitcoinPrice(double updatePriod, Wallet& wallet,  Bit
 {
     while (true)
     {
-        if (m_command == 'b') break;
+        if (m_command.load(std::memory_order_relaxed) == 'b') break;
         //std::cout << std::this_thread::get_id() << "; m_command is: " << m_command;
         btc.PriceUpdater();
         std::cout << "\nCurrent price of the bitcoin in usd is: " << btc.GetPrice();
@@ -56,75 +56,77 @@ void CommandProcessor::CommandHandler(Wallet& wallet, BitCoin& btc)
     //}
     bool showLog{ false };
     double amount{ 0 };
-	while (m_command != 'q')
+	while (m_command.load(std::memory_order_relaxed) != 'q')
 	{
-        switch (m_command)
+        switch (m_command.load(std::memory_order_relaxed))
         {
         case DEFAULT_VALUE:
-            if (m_newInput)
+            if (m_newInput.load(std::memory_order_relaxed))
             {
                 m_PrintMenue(showLog);
-                m_newInput = !m_newInput;
+                m_newInput.store(false, std::memory_order_relaxed);
             }
             break;
         case 'r':
             std::cout << "\n\nyour money in btc is: ";
             std::cout << wallet.ReturnBalanceInBitCoin(btc);
             std::cout << "btc\n";
-            m_newInput = !m_newInput;
-            m_command = DEFAULT_VALUE;
+            m_newInput.store(false, std::memory_order_relaxed);
+            m_command.store(DEFAULT_VALUE, std::memory_order_relaxed);
             break;
         case 'a':
             std::cout << "\nPlease press b to go back to the menue\n";
             std::cout << "press m to add 1000$ to your wallet, press n to add 100$ to your wallet\n";
-            while (m_command != 'b')
+            while (m_command.load(std::memory_order_relaxed) != 'b')
             {
-                if (m_command == 'm' && m_newInput)
+                if (m_command.load(std::memory_order_relaxed) == 'm' && m_newInput.load(std::memory_order_relaxed))
                 {
                     wallet.AddValue(1000, showLog);
-                    m_newInput = !m_newInput;
+                    m_newInput.store(false, std::memory_order_relaxed);
                 }
-                if (m_command == 'n' && m_newInput)
+                if (m_command.load(std::memory_order_relaxed) == 'n' && m_newInput.load(std::memory_order_relaxed))
                 {
                     wallet.AddValue(100, showLog);
-                    m_newInput = !m_newInput;
+                    m_newInput.store(false, std::memory_order_relaxed);
                 }
             }
             break;
         case 'd':
             std::cout << "\nPlease press b to go back to the menue\n";
             std::cout << "press m to deduct 1000$ from your wallet, press n to deduct 100$ from your wallet\n";
-            while (m_command != 'b')
+            while (m_command.load(std::memory_order_relaxed) != 'b')
             {
-                if (m_command == 'm' && m_newInput)
+                if (m_command.load(std::memory_order_relaxed) == 'm' && m_newInput.load(std::memory_order_relaxed))
                 {
                     wallet.DecreaseValue(1000, showLog);
-                    m_newInput = !m_newInput;
+                    m_newInput.store(false, std::memory_order_relaxed);
                 }
-                if (m_command == 'n' && m_newInput)
+                if (m_command.load(std::memory_order_relaxed) == 'n' && m_newInput.load(std::memory_order_relaxed))
                 {
                     wallet.DecreaseValue(100, showLog);
-                    m_newInput = !m_newInput;
+                    m_newInput.store(false, std::memory_order_relaxed);
                 }
             }
             break;
         case 'l':
             //std::thread(&CommandProcessor::LiveBitcoinPrice, this, 10, std::ref(wallet), std::ref(btc)).join();
             LiveBitcoinPrice(2, wallet, btc);
-            m_command = DEFAULT_VALUE;
-            m_newInput = !m_newInput;
+            m_command.store(DEFAULT_VALUE, std::memory_order_relaxed);
+            m_newInput.store(false, std::memory_order_relaxed);
             break;
         case 'o':
             showLog = !showLog;
-            m_newInput = !m_newInput;
+            m_newInput.store(false, std::memory_order_relaxed);
             std::cout << "\nShow log mode has been changed to " << showLog << " successfully\n";
-            m_command = DEFAULT_VALUE;
+            //lock
+            m_command.store(DEFAULT_VALUE, std::memory_order_relaxed);
             break;
         default:
+            if(m_command.load(std::memory_order_relaxed) != 'b')
             std::cout << "Invalid command. Please try again.\n";
             m_PrintMenue(showLog);
-            m_newInput = !m_newInput;
-            m_command = DEFAULT_VALUE;
+            m_newInput.store(false, std::memory_order_relaxed);
+            m_command.store(DEFAULT_VALUE, std::memory_order_relaxed);
             break;
         }
 	}
@@ -133,19 +135,18 @@ void CommandProcessor::CommandHandler(Wallet& wallet, BitCoin& btc)
 
 void CommandProcessor::CommandReader()
 {
-    while (m_command != 'q')
+    while (m_command.load(std::memory_order_relaxed) != 'q')
     {
-        if (m_command == 'b' && !m_newInput)
+        if (m_command.load(std::memory_order_relaxed) == 'b' && !m_newInput)
         {
-            std::lock_guard<std::mutex> lock(m_mutexGuard);
-            m_command = DEFAULT_VALUE;
+
+            m_command.store(DEFAULT_VALUE, std::memory_order_relaxed);
         }
         if (_kbhit()) 
         {
-            std::cout <<"***m is: " << m_command << std::endl;
-            std::lock_guard<std::mutex> lock(m_mutexGuard);
-            m_command = _getch();
-            m_newInput = true;
+            //std::cout <<"m_command is: " << m_command << std::endl;
+            m_command.store(_getch(), std::memory_order_relaxed);
+            m_newInput.store(true, std::memory_order_relaxed);
         }
     }
 }
