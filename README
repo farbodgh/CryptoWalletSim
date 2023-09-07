@@ -4,7 +4,7 @@ CryptoWalletSim is a command-line application written in modern C++ that simulat
 
 ## Description
 
-This project is designed to help users understand multi-threading concepts in C++ and demonstrate how to interact with external APIs to track Bitcoin prices.
+This project is designed to show users how multi-threading concepts in C++ can be used to have a simple CLI application.
 
 ## Usage
 
