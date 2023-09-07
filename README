@@ -1,42 +1,51 @@
-CryptoWalletSim
+# CryptoWalletSim
 
-CryptoWalletSim is a command-line application written in modern C++. It leverages multi-threading capabilities to provide efficient processing of user commands. This project consists of two main functions:
+CryptoWalletSim is a command-line application written in modern C++ that simulates wallet management and Bitcoin tracking. It leverages multi-threading capabilities to provide efficient processing of user commands.
 
-1. **Command Reader**: Responsible for reading commands from the user.
-2. **Command Processor**: Processes the commands received from the user.
+## Description
 
-Use:
-In order to use it, you should download it on your system, and run it with the compiler of your choice. Because of conio.h it does not work on linux operating systems.
+This project is designed to help users understand multi-threading concepts in C++ and demonstrate how to interact with external APIs to track Bitcoin prices.
+
+## Usage
+
+To use CryptoWalletSim, follow these steps:
+
+1. **Download**: Clone or download the project to your Windows-based system.
+
+2. **Compile**: Compile the application using a C++ compiler of your choice. Make sure to have the necessary build tools installed.
+
+3. **Run**: Execute the compiled binary to start CryptoWalletSim.
+
+### Platform Compatibility
+
+CryptoWalletSim is designed for Windows-based systems due to its reliance on platform-specific functionality provided by `conio.h`, which is not available on Linux or other non-Windows platforms.
+
+## Features
+
+- Simulate wallet management.
+- Track live Bitcoin prices.
+- Interactive command-line interface.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. For details, see the [MIT License](https://opensource.org/licenses/MIT) file.
 
-### MIT License
-
-[MIT License](https://opensource.org/licenses/MIT)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-**Credits and Acknowledgments**
+## Credits and Acknowledgments
 
 This project relies on the following third-party libraries:
 
-- [cpr (C++ Requests)](https://github.com/whoshuu/cpr)
-  - Author: [Original Author's Name]
+- [cpr (C++ Requests)](https://github.com/libcpr/cpr/blob/master/LICENSE)
+  - Author: Niels Lohmann
   - License: [Link to License Information]
 
-- [nlohmann/json](https://github.com/nlohmann/json)
-  - Author: [Original Author's Name]
+- [nlohmann/json](https://github.com/nlohmann/json/tree/develop/LICENSES)
+  - Author: Niels Lohmann
   - License: [Link to License Information]
 
 Please take a moment to acknowledge and appreciate the contributions of the original authors and contributors of these libraries.
 
+## Author
+
+- **Farbod Hadi Ghanavat**
+- LinkedIn: [Farbod Hadi Ghanavat](https://www.linkedin.com/in/farbodhadighanavat)
+- Email: [Your Email Address]
